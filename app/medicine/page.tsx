@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { getMedicinesBySearch } from "@/lib/getMedicinesBySearch";
 import SearchBar from "./components/SearchBar";
 import MedicineList from "./components/MedicineList";
@@ -12,7 +12,7 @@ import Box from "../../components/ui/Box";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const MedicineSearchPage: React.FC = () => {
+const MedicineSearchPageContent: React.FC = () => {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -64,7 +64,6 @@ const MedicineSearchPage: React.FC = () => {
     }
   }, [searchParams, router]);
 
-
   useEffect(() => {
     if (loading) {
       document.body.style.overflow = "hidden";
@@ -110,6 +109,14 @@ const MedicineSearchPage: React.FC = () => {
         </Box>
       )}
     </div>
+  );
+};
+
+const MedicineSearchPage: React.FC = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <MedicineSearchPageContent />
+    </Suspense>
   );
 };
 

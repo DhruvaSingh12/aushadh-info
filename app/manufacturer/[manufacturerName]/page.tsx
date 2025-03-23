@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { getMedicinesByManufacturer } from "@/lib/getMedicinesByManufacturer";
 import Box from "@/components/ui/Box";
 import Loading from "../components/Loading";
@@ -14,7 +14,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { SearchIcon } from "lucide-react";
 import Pagination from "@/components/Pagination";
 
-const ManufacturerPage: React.FC = () => {
+const ManufacturerPageContent: React.FC = () => {
   const { manufacturerName } = useParams();
   const router = useRouter();
   const normalizedManufacturerName =
@@ -188,6 +188,14 @@ const ManufacturerPage: React.FC = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const ManufacturerPage: React.FC = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <ManufacturerPageContent />
+    </Suspense>
   );
 };
 

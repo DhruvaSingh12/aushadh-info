@@ -3,7 +3,6 @@ import "./globals.css";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from "next-themes";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: {
