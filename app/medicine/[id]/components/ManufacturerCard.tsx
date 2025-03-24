@@ -62,14 +62,13 @@ const ManufacturerCard: React.FC<ManufacturerCardProps> = ({
                     className
                 )}
             >
-                <div className="absolute inset-0 bg-black/15 rounded-lg" />
                 <p className="text-card font-normal font-mono text-[12px] absolute top-[2px] right-2">Manufacturer</p>
 
                 <div className="relative">
                     <Tooltip>
                         <TooltipTrigger>
                             <h3
-                                className="text-4xl lg:text-4xl absolute top-2 break-words text-start text-wrap-clamp font-extrabold overflow-hidden"
+                                className="text-4xl absolute top-1 break-words text-start text-wrap-clamp font-extrabold overflow-hidden"
                             >
                                 {manufacturer}
                             </h3>

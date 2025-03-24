@@ -13,7 +13,7 @@ const UsesCard: React.FC<UsesCardProps> = ({ formattedUse, onUseClick, className
   return (
     <div
       className={cn(
-        "flex flex-col w-[300px] lg:w-[350px] h-[300px] bg-indigo-500 relative items-start px-4 py-3 text-card rounded-lg gap-3",
+        "flex flex-col w-[300px] lg:w-[350px] h-[300px] bg-red-400 relative items-start px-4 py-3 text-card rounded-lg gap-3",
         className
       )}
     >

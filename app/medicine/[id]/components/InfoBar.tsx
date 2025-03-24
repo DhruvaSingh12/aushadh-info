@@ -17,8 +17,8 @@ const InfoBar: React.FC<InfoBarProps> = ({ price, isDiscontinued, habitForming, 
           <TooltipTrigger>
             <p className="font-serif font-extrabold text-muted-foreground text-[20px] lg:text-5xl">₹{price}</p>
           </TooltipTrigger>
-          <TooltipContent className="bg-secondary p-2 rounded-lg">
-            <p className="text-sm text-accent-foreground">Price for complete pack.</p>
+          <TooltipContent className="p-2 rounded-lg">
+            <p className="text-sm font-semibold">Price for complete pack.</p>
           </TooltipContent>
         </Tooltip>
 
@@ -30,8 +30,8 @@ const InfoBar: React.FC<InfoBarProps> = ({ price, isDiscontinued, habitForming, 
               <FaBoxOpen className="text-red-500" size={29} />
             )}
           </TooltipTrigger>
-          <TooltipContent className="bg-secondary p-2 rounded-lg">
-            <p className="text-sm text-accent-foreground">
+          <TooltipContent className="p-2 rounded-lg">
+            <p className="text-sm font-semibold">
               {isDiscontinued === "False" ? "Supply is available in the market." : "Supply is not available in the market."}
             </p>
           </TooltipContent>
@@ -45,8 +45,8 @@ const InfoBar: React.FC<InfoBarProps> = ({ price, isDiscontinued, habitForming, 
               <FaExclamationTriangle className="text-red-500" size={29} />
             )}
           </TooltipTrigger>
-          <TooltipContent className="bg-secondary p-2 rounded-lg">
-            <p className="text-sm text-accent-foreground">
+          <TooltipContent className="p-2 rounded-lg">
+            <p className="text-sm font-semibold">
               {habitForming === "No" || habitForming === "" ? "Supply is not habit forming." : "Supply is habit forming."}
             </p>
           </TooltipContent>
@@ -60,8 +60,8 @@ const InfoBar: React.FC<InfoBarProps> = ({ price, isDiscontinued, habitForming, 
               <FaMortarPestle className="text-stone-500" size={29} />
             )}
           </TooltipTrigger>
-          <TooltipContent className="bg-secondary p-2 rounded-lg">
-            <p className="text-sm text-accent-foreground">
+          <TooltipContent className="p-2 rounded-lg">
+            <p className="text-sm font-semibold">
               {type === "allopathy" ? "Supply is allopathic." : "Supply is homeopathic."}
             </p>
           </TooltipContent>

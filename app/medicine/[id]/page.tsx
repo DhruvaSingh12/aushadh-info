@@ -18,6 +18,7 @@ import UsesCard from "./components/UsesCard";
 import ActionCard from "./components/ActionCard";
 import InfoBar from "./components/InfoBar";
 import { getMedicinesBySearch } from "@/lib/getMedicinesBySearch";
+import SubstituteCard from "./components/SubstituteCard";
 
 const MedicinePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,6 +27,7 @@ const MedicinePage: React.FC = () => {
   const [medicine, setMedicine] = useState<Medicine | null>(null);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState(searchParams.get("q") || "");
+  const [substitutes, setSubstitutes] = useState<Medicine[]>([]);
 
   const formattedUse =
   medicine?.use && typeof medicine?.use === "string"
@@ -48,6 +50,13 @@ const MedicinePage: React.FC = () => {
         } else {
           const result = await getMedicineById(id as string);
           setMedicine(result);
+          // Fetch substitutes based on therapeutic class
+          if (result?.therapeutic_class) {
+            const { medicines } = await getMedicinesBySearch(result.therapeutic_class, 1, 5);
+            // Filter out the current medicine from substitutes
+            const filteredSubstitutes = medicines.filter(m => m.id !== result.id);
+            setSubstitutes(filteredSubstitutes);
+          }
         }
       } catch (error) {
         console.error("Error fetching medicine:", error);
@@ -142,9 +151,11 @@ const MedicinePage: React.FC = () => {
             router.push(`/medicine?q=${encodeURIComponent(use)}&page=1`);
           }}
         />
-
         <ManufacturerCard manufacturer={medicine.manufacturer_name} />
         <ActionCard actionClass={medicine.action_class} imageSrc="/two.webp" />
+      </Box>
+      <Box className="mt-6 flex justify-center">
+        <SubstituteCard substitutes={substitutes} />
       </Box>
     </div>
   );

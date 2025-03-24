@@ -4,6 +4,15 @@ import React, { useState, useEffect } from "react";
 import { getTherapeuticClassInfo } from "@/lib/getTherapeuticClassInfo";
 import { cn } from "@/lib/utils";
 import TherapeuticTooltip from "@/components/TherapeuticTooltip";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/Dialog";
+import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 interface TherapeuticCardProps {
   therapeuticClass: string | null;
@@ -36,15 +45,16 @@ const TherapeuticCard: React.FC<TherapeuticCardProps> = ({
     return (
       <div
         className={cn(
-          "relative p-4 border rounded-md text-muted-foreground bg-therapeutic bg-cover bg-center",
+          "relative px-4 py-3 w-[300px] h-[300px] border rounded-lg bg-indigo-500 text-card",
           className
         )}
       >
-        <div className="bg-black/50 p-4 rounded-md">
-          <p className="text-sm font-medium">
-            Therapeutic class information not available
+        <p className="text-card font-normal font-mono text-[12px] absolute top-[2px] right-2">
+        Therapeutic class
+      </p>
+          <p className="text-4xl break-words bottom-3 left-3 right-3 absolute text-start text-card font-extrabold">
+            Information on Therapeutic class is not available.
           </p>
-        </div>
       </div>
     );
   }
@@ -52,24 +62,47 @@ const TherapeuticCard: React.FC<TherapeuticCardProps> = ({
   return (
     <div
       className={cn(
-        "relative px-4 py-3 lg:w-[450px] w-[300px] lg:h-[300px] h-[400px] border rounded-lg bg-red-400 text-card",
+        "relative px-4 py-3 w-[300px] h-[300px] border rounded-lg bg-indigo-500 text-card",
         className
       )}
     >
       <p className="text-card font-normal font-mono text-[12px] absolute top-[2px] right-2">
         Therapeutic class
       </p>
-      <div className="absolute inset-0 bg-black/15 rounded-lg" />
 
-      <div className="relative z-10">
-        <h3 className="lg:text-4xl text-3xl lg:mt-2 lg:mb-2 text-start text-card font-extrabold">
-          <TherapeuticTooltip therapeuticClass={therapeuticClass} />
-        </h3>
+      <div className="absolute ml-4 items-center justify-center pointer-events-none">
+        <Image 
+          src="/one.webp" 
+          alt="Therapeutic Icon" 
+          width={1000}
+          height={1000} 
+          className="w-[220px] h-[200px] opacity-90" 
+        />
       </div>
-      <div
-        className="relative overflow-y-auto scrollbar-hide h-[calc(100%-55px)] scrollable"
-      >
-        <p className="text-[16px] text-justify mb-4">{info?.description}</p>
+
+      <div className="absolute z-10 bottom-3 left-3 right-3 text-[35px] break-words text-start text-wrap-clamp font-extrabold leading-tight">
+        <Dialog>
+          <DialogTrigger asChild>
+            <div className="flex items-center gap-2 cursor-pointer group">
+              <h3>
+                <TherapeuticTooltip therapeuticClass={therapeuticClass} />
+              </h3>
+              <ChevronRight className="w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+          </DialogTrigger>
+          <DialogContent className="bg-background max-w-[650px]">
+            <DialogHeader>
+              <DialogTitle className="text-[35px] font-extrabold">
+                {therapeuticClass}
+              </DialogTitle>
+            </DialogHeader>
+            <div>
+              <p className="text-muted-foreground text-lg text-justify leading-relaxed">
+                {info?.description || "No description available for this therapeutic class."}
+              </p>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
