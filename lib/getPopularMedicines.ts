@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import { Medicine } from "@/types";
 import { cacheData, getCachedData } from "./cacheUtils";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
