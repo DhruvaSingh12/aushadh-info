@@ -45,7 +45,7 @@ export const getCategoryStats = async (): Promise<CategoryStats> => {
         };
       }
     });
-    Object.entries(categoryCounts).forEach(([_, data]) => {
+    Object.entries(categoryCounts).forEach(([, data]) => {
       const { count, displayName } = data;
       stats[displayName] = count;
     });
