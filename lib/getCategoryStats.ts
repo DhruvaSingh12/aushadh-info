@@ -11,7 +11,7 @@ export type CategoryStats = {
 };
 
 // Updated cache key to force refresh
-const CACHE_KEY = "aushadh_cache_category_stats_v2";
+const CACHE_KEY = "aushadh_cache_category_stats_v3";
 
 export const getCategoryStats = async (): Promise<CategoryStats> => {
   // Check for cached data first
@@ -70,17 +70,6 @@ export const getCategoryStats = async (): Promise<CategoryStats> => {
       
       // Add the category with proper display name to stats
       stats[displayName] = count;
-      
-      // Also add a sanitized key version for JS object access
-      const safeKey = normalizedKey
-        .replace(/[^a-z0-9]/g, '_') // Replace non-alphanumeric chars with underscore
-        .replace(/_+/g, '_')        // Replace multiple underscores with single one
-        .replace(/^_|_$/g, '');     // Remove leading/trailing underscores
-      
-      // Only add the safe key if it's different from the display name
-      if (safeKey !== displayName) {
-        stats[safeKey] = count;
-      }
     });
 
     // Cache the results

@@ -1,7 +1,9 @@
 import WelcomeSection from './components/Welcome';
 import CategoryAnalytics from './components/CategoryAnalytics';
-import PopularMedicines from './components/PopularMedicines';
 import TopManufacturers from './components/TopManufacturers';
+import ActionClasses from './components/ActionClasses';
+import QuickSearch from './components/QuickSearch';
+import RecentSearches from './components/RecentSearches';
 import Header from './components/Header';
 
 export default function Home() {
@@ -10,14 +12,18 @@ export default function Home() {
       <Header />
       <div className="container mx-auto p-4 pt-24">
         <WelcomeSection />
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          <div className="md:col-span-2">
+          {/* Left Column - 2/3 width */}
+          <div className="md:col-span-2 space-y-6">
             <CategoryAnalytics />
+            <ActionClasses />
           </div>
-          <div>
-            <PopularMedicines />
-          </div>
-          <div>
+          
+          {/* Right Column - 1/3 width */}
+          <div className="space-y-6">
+            <QuickSearch />
+            <RecentSearches />
             <TopManufacturers />
           </div>
         </div>

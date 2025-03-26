@@ -10,7 +10,8 @@ export type ManufacturerStat = {
   count: number;
 };
 
-const CACHE_KEY = "aushadh_cache_top_manufacturers";
+const CACHE_KEY = "aushadh_cache_top_manufacturers_v2";
+const THRESHOLD_CACHE_KEY = "aushadh_cache_threshold_manufacturers";
 
 export const getTopManufacturers = async (limit: number = 5): Promise<ManufacturerStat[]> => {
   // Check for cached data first
@@ -50,6 +51,53 @@ export const getTopManufacturers = async (limit: number = 5): Promise<Manufactur
     return manufacturers.slice(0, limit);
   } catch (error) {
     console.error("Error fetching top manufacturers:", error);
+    return [];
+  }
+};
+
+/**
+ * Get manufacturers with product count over a specified threshold
+ */
+export const getManufacturersAboveThreshold = async (threshold: number = 1000): Promise<ManufacturerStat[]> => {
+  // Create a cache key specific to this threshold
+  const specificCacheKey = `${THRESHOLD_CACHE_KEY}_${threshold}`;
+  
+  // Check for cached data first
+  const cachedManufacturers = getCachedData<ManufacturerStat[]>(specificCacheKey);
+  if (cachedManufacturers) {
+    return cachedManufacturers;
+  }
+
+  // If no cached data, fetch from Supabase
+  try {
+    const { data, error } = await supabase
+      .from("medicine")
+      .select("manufacturer_name")
+      .not("manufacturer_name", "is", null);
+
+    if (error) throw error;
+
+    // Count medicines by manufacturer
+    const manufacturerCounts: Record<string, number> = {};
+    data.forEach((item) => {
+      const name = item.manufacturer_name;
+      if (name) {
+        manufacturerCounts[name] = (manufacturerCounts[name] || 0) + 1;
+      }
+    });
+
+    // Convert to array, filter by threshold, and sort by count
+    const manufacturers = Object.entries(manufacturerCounts)
+      .map(([name, count]) => ({ name, count }))
+      .filter(manufacturer => manufacturer.count >= threshold)
+      .sort((a, b) => b.count - a.count);
+    
+    // Cache the filtered manufacturers
+    cacheData(specificCacheKey, manufacturers);
+
+    return manufacturers;
+  } catch (error) {
+    console.error(`Error fetching manufacturers with more than ${threshold} products:`, error);
     return [];
   }
 }; 
