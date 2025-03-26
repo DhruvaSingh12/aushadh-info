@@ -2,8 +2,6 @@ import WelcomeSection from './components/Welcome';
 import CategoryAnalytics from './components/CategoryAnalytics';
 import TopManufacturers from './components/TopManufacturers';
 import ActionClasses from './components/ActionClasses';
-import QuickSearch from './components/QuickSearch';
-import RecentSearches from './components/RecentSearches';
 import Header from './components/Header';
 
 export default function Home() {
@@ -14,16 +12,11 @@ export default function Home() {
         <WelcomeSection />
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          {/* Left Column - 2/3 width */}
           <div className="md:col-span-2 space-y-6">
             <CategoryAnalytics />
             <ActionClasses />
           </div>
-          
-          {/* Right Column - 1/3 width */}
           <div className="space-y-6">
-            <QuickSearch />
-            <RecentSearches />
             <TopManufacturers />
           </div>
         </div>

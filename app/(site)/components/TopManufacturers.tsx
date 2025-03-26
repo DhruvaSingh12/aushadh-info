@@ -5,7 +5,7 @@ import Box from '@/components/ui/Box';
 import Link from 'next/link';
 import { getManufacturersAboveThreshold, ManufacturerStat } from '@/lib/getTopManufacturers';
 import { getDashboardStats } from '@/lib/getDashboardStats';
-import { Building, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog';
 import { Button } from '@/components/ui/Button';
 
@@ -37,7 +37,6 @@ const TopManufacturers: React.FC = () => {
     fetchData();
   }, []);
 
-  // Calculate total products for percentage calculations
   const totalProducts = manufacturers.reduce((sum, m) => sum + m.count, 0);
 
   return (
@@ -67,7 +66,6 @@ const TopManufacturers: React.FC = () => {
           </div>
         ) : (
           <>
-            {/* Show top 5 manufacturers in the main view */}
             <div className="space-y-4 mt-6">
               {manufacturers.slice(0, 5).map((manufacturer) => (
                 <Link 
@@ -87,7 +85,6 @@ const TopManufacturers: React.FC = () => {
               ))}
             </div>
             
-            {/* "View All" button for seeing all manufacturers */}
             {manufacturers.length > 5 && (
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
