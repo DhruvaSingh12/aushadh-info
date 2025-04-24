@@ -13,6 +13,7 @@ interface MedicineCardProps {
   packSize: string | null;
   price: string | null;
   therapeuticClass: string | null;
+  actionClass: string | null;
   use: string;
 }
 
@@ -24,6 +25,7 @@ const iconMapping: { [key: string]: typeof faPrescriptionBottle } = {
   syrup: faPrescriptionBottle,
   syrups: faPrescriptionBottle,
   drops: faEyeDropper,
+  drop: faEyeDropper,
   tablet: faTablets,
   tablets: faTablets,
   suspension: faBong,
@@ -64,7 +66,7 @@ const getIconAndColor = (packSize: string | null) => {
   return { icon, color };
 };
 
-const MedicineCard: React.FC<MedicineCardProps> = ({ id, name, manufacturer, packSize, price, therapeuticClass, use }) => {
+const MedicineCard: React.FC<MedicineCardProps> = ({ id, name, manufacturer, packSize, price, therapeuticClass, actionClass, use }) => {
   const { icon, color } = getIconAndColor(packSize);
 
   return (
@@ -85,7 +87,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({ id, name, manufacturer, pac
           <h2 className="text-primary text-wrap-clamp text-left text-[17px] font-semibold">
             <MedicineTooltip
               name={name}
-              action_class={therapeuticClass}
+              action_class={actionClass}
               use={use}
               pack_size_label={packSize}
             />

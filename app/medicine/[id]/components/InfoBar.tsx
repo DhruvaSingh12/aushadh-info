@@ -15,7 +15,7 @@ const InfoBar: React.FC<InfoBarProps> = ({ price, isDiscontinued, habitForming, 
       <div className="flex mt-4 flex-row lg:gap-8 gap-[18px]">
         <Tooltip>
           <TooltipTrigger>
-            <p className="font-serif font-extrabold text-muted-foreground text-[20px] lg:text-5xl">₹{price}</p>
+            <p className="font-extrabold font-mono text-muted-foreground text-[20px] lg:text-4xl">₹{price}</p>
           </TooltipTrigger>
           <TooltipContent className="p-2 rounded-lg">
             <p className="text-sm font-semibold">Price for complete pack.</p>

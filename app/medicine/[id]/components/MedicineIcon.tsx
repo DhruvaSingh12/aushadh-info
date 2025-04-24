@@ -10,6 +10,7 @@ const iconMapping: { [key: string]: typeof faPrescriptionBottle } = {
   syrup: faPrescriptionBottle,
   syrups: faPrescriptionBottle,
   drops: faEyeDropper,
+  drop: faEyeDropper,
   tablet: faTablets,
   tablets: faTablets,
   suspension: faBong,

@@ -6,7 +6,7 @@ import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/comp
 interface MedicineTooltipProps {
   name: string | null;
   action_class: string | null;
-  use: string;  
+  use: string | null;  
   pack_size_label: string | null;
 }
 

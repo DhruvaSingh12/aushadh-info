@@ -8,6 +8,7 @@ interface Medicine {
   pack_size_label: string | null;
   price: string | null;
   therapeutic_class: string | null;
+  action_class: string | null;
   use: string | null;
 }
 
@@ -32,6 +33,7 @@ const MedicineList: React.FC<MedicineListProps> = ({ medicines }) => {
           price={medicine.price}
           therapeuticClass={medicine.therapeutic_class}
           use={medicine.use || ""}
+          actionClass={medicine.action_class}
         />
       ))}
     </div>

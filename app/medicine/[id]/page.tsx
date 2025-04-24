@@ -19,6 +19,8 @@ import ActionCard from "./components/ActionCard";
 import InfoBar from "./components/InfoBar";
 import { getMedicinesBySearch } from "@/lib/getMedicinesBySearch";
 import SubstituteCard from "./components/SubstituteCard";
+import ChemicalCard from "./components/ChemicalCard";
+import SideEffectsCard from "./components/SideEffectsCard";
 
 const MedicinePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -37,6 +39,11 @@ const MedicinePage: React.FC = () => {
         .map((item) => item.trim()) 
     : ["N/A"];
 
+  // Create a formatted array of side effects
+  const sideEffects = 
+    medicine?.side_effect && Array.isArray(medicine.side_effect) 
+      ? medicine.side_effect.map(item => item.trim())
+      : ["No side effects reported"];
 
   useEffect(() => {
     if (!id && !query) return;
@@ -50,10 +57,8 @@ const MedicinePage: React.FC = () => {
         } else {
           const result = await getMedicineById(id as string);
           setMedicine(result);
-          // Fetch substitutes based on therapeutic class
           if (result?.therapeutic_class) {
             const { medicines } = await getMedicinesBySearch(result.therapeutic_class, 1, 5);
-            // Filter out the current medicine from substitutes
             const filteredSubstitutes = medicines.filter(m => m.id !== result.id);
             setSubstitutes(filteredSubstitutes);
           }
@@ -154,7 +159,14 @@ const MedicinePage: React.FC = () => {
         <ManufacturerCard manufacturer={medicine.manufacturer_name} />
         <ActionCard actionClass={medicine.action_class} imageSrc="/two.webp" />
       </Box>
-      <Box className="mt-6 flex justify-center">
+      <Box className="flex lg:flex-row flex-col items-center justify-center gap-4 mt-4">
+        <SideEffectsCard 
+          sideEffects={sideEffects} 
+          onSideEffectClick={(sideEffect) => {
+            router.push(`/medicine?q=${encodeURIComponent(sideEffect)}&page=1`);
+          }}
+        />
+        <ChemicalCard chemicalClass={medicine.chemical_class} />
         <SubstituteCard substitutes={substitutes} />
       </Box>
     </div>

@@ -39,7 +39,7 @@ const ManufacturerTooltip: React.FC<ManufacturerTooltipProps> = ({ manufacturer 
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger
-          className="hover:underline text-left text-muted-foreground cursor-pointer"
+          className="text-left text-muted-foreground cursor-pointer"
           onClick={handleClick}
         >
           {manufacturer}
